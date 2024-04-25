@@ -822,9 +822,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001587:
-  version "1.0.30001610"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001610.tgz#2f44ed6e21d359e914271ae35b68903632628ccf"
-  integrity sha512-QFutAY4NgaelojVMjY63o6XlZyORPaLfyMnsl3HgnWdJUcX6K0oaJymHjH8PT5Gk7sTm8rvC/c5COUQKXqmOMA==
+  version "1.0.30001612"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001612.tgz#d34248b4ec1f117b70b24ad9ee04c90e0b8a14ae"
+  integrity sha512-lFgnZ07UhaCcsSZgWW0K5j4e69dK1u/ltrL9lTUiFOwNHs12S3UMIEYgBV0Z6C6hRDev7iRnMzzYmKabYdXF9g==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -1004,9 +1004,9 @@ diff-sequences@^29.6.3:
   integrity sha512-oWdqbSywffzH1l4WXKPHWA0TWYpqp7IyLfqjipT4upoIFS0HPMqtNotykQpD4iIg0BqtNmdgPCh2WMvMt7yTiw==
 
 electron-to-chromium@^1.4.668:
-  version "1.4.737"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.737.tgz#3a774a58e04980741f65d440f5fdf57af18b6dde"
-  integrity sha512-QvLTxaLHKdy5YxvixAw/FfHq2eWLUL9KvsPjp0aHK1gI5d3EDuDgITkvj0nFO2c6zUY3ZqVAJQiBYyQP9tQpfw==
+  version "1.4.749"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.749.tgz#9869e2e258141da26a2272b58264584c3461279d"
+  integrity sha512-LRMMrM9ITOvue0PoBrvNIraVmuDbJV5QC9ierz/z5VilMdPOVMjOtpICNld3PuXuTZ3CHH/UPxX9gHhAPwi+0Q==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -1982,9 +1982,9 @@ pure-rand@^6.0.0:
   integrity sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==
 
 react-is@^18.0.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
-  integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+  version "18.3.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.0.tgz#6c2d9b6cdd4c2cffb7c89b1bcb57bc44d12f1993"
+  integrity sha512-wRiUsea88TjKDc4FBEn+sLvIDesp6brMbGWnJGjew2waAc9evdhja/2LvePc898HJbHw0L+MTWy7NhpnELAvLQ==
 
 readable-stream@^3.6.0:
   version "3.6.2"
@@ -2345,10 +2345,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zapier-platform-core@15.5.1:
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/zapier-platform-core/-/zapier-platform-core-15.5.1.tgz#7b29c14b1bc707803cfe967c72e1e9620994c03b"
-  integrity sha512-aUejMJZt+JKNksknxMTFP59VsYyIFwswCDpmshRb1dJfZqYPqD9lG/zjBPIcpNg31zS1gDxzItqqQXBaopzn2Q==
+zapier-platform-core@15.7.0:
+  version "15.7.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-core/-/zapier-platform-core-15.7.0.tgz#b4f56836f1798fcf2e429d356f65f96daac56c40"
+  integrity sha512-3Qzqj5akLwRK9ry2DxHvyWu9YaAsM7VkTQgwfdMLh+iJ+0TEELvvuM2FDm0X4+d4vgmGjDDh1WsUKm62EgrkQg==
   dependencies:
     "@zapier/secret-scrubber" "^1.0.8"
     bluebird "3.7.2"
@@ -2361,14 +2361,14 @@ zapier-platform-core@15.5.1:
     node-fetch "2.6.7"
     oauth-sign "0.9.0"
     semver "7.5.2"
-    zapier-platform-schema "15.5.1"
+    zapier-platform-schema "15.7.0"
   optionalDependencies:
     "@types/node" "^20.3.1"
 
-zapier-platform-schema@15.5.1:
-  version "15.5.1"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-15.5.1.tgz#f7530ab1b641a24b73872424ecf9f4c2598c0303"
-  integrity sha512-uunpH46JCNjVeoNKdyVvD8QB6XPSM42ZPTxhkGC8El3ht31fyENz86KRfhHbYp0oabAopJu0yc/+wWXvhKjdcQ==
+zapier-platform-schema@15.7.0:
+  version "15.7.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-15.7.0.tgz#748f09a21462e46495e474e6995bce754c51f9c2"
+  integrity sha512-xcSl53n9CanzWVQA+UACWKsgOaLt5WhLsb4m0Kzz3lGS2xVVBSeZ9UnKJpbKL6moZBVUcZNbcQfiecJHiIpNDQ==
   dependencies:
     jsonschema "1.2.2"
     lodash "4.17.21"

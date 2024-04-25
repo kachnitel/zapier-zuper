@@ -8,10 +8,34 @@ zapier.tools.env.inject();
 
 describe('searches.customer', () => {
   it('should run', async () => {
-    const bundle = { inputData: {} };
+    const bundle = {
+      inputData: {
+        email: ''
+      },
+      authData: {
+        apiKey: process.env.API_KEY
+      }
+    };
 
     const results = await appTester(App.searches.customer.operation.perform, bundle);
     expect(results).toBeDefined();
-    // TODO: add more assertions
+    expect(results.length).toBeGreaterThan(0);
+  });
+
+  it('should fail on bad email', async () => {
+    const bundle = {
+      inputData: {
+        email: 'bad-email'
+      },
+      authData: {
+        apiKey: process.env.API_KEY
+      }
+    };
+
+    try {
+      await appTester(App.searches.customer.operation.perform, bundle);
+    } catch (error) {
+      expect(error.message).toContain('No customer found.');
+    }
   });
 });

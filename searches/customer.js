@@ -1,13 +1,20 @@
 // find a particular customer by name
 const perform = async (z, bundle) => {
+  const endpoint = 'customers';
+  const url = `https://${process.env.ZUPER_REGION}.zuperpro.com/api/${endpoint}`;
+
   const response = await z.request({
-    url: 'https://jsonplaceholder.typicode.com/posts',
+    // url: 'https://jsonplaceholder.typicode.com/posts',
+    url: url,
     params: {
-      name: bundle.inputData.name
+      'filter.customer_email': bundle.inputData.email
     }
   });
+
+  const responseData = response.json;
+
   // this should return an array of objects (but only the first will be used)
-  return response.data
+  return responseData.data;
 };
 
 module.exports = {
@@ -27,7 +34,7 @@ module.exports = {
     // `inputFields` defines the fields a user could provide
     // Zapier will pass them in as `bundle.inputData` later. Searches need at least one `inputField`.
     inputFields: [
-      {key: 'name', required: true, helpText: 'Find the Customer with this name.'}
+      { key: 'email', required: true, helpText: 'Find the Customer with this email.' }
     ],
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
@@ -35,7 +42,7 @@ module.exports = {
     // returned records, and have obvious placeholder values that we can show to any user.
     sample: {
       id: 1,
-      name: 'Test'
+      email: 'john@doe.ca'
     },
 
     // If fields are custom to each user (like spreadsheet columns), `outputFields` can create human labels
@@ -46,6 +53,10 @@ module.exports = {
       // these are placeholders to match the example `perform` above
       // {key: 'id', label: 'Person ID'},
       // {key: 'name', label: 'Person Name'}
+      { key: 'customer_uid', label: 'Customer UID' },
+      { key: 'customer_email', label: 'Customer Email' },
+      { key: 'customer_first_name', label: 'Customer First Name' },
+      { key: 'customer_last_name', label: 'Customer Last Name' }
     ]
   }
 };
