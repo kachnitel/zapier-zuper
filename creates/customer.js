@@ -1,7 +1,7 @@
 // create a particular customer by name
 const perform = async (z, bundle) => {
   const endpoint = 'customers';
-  const url = `https://${process.env.ZUPER_REGION}.zuperpro.com/api/${endpoint}`;
+  const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}`;
 
   const response = await z.request({
     method: 'POST',

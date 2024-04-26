@@ -1,8 +1,4 @@
-const {
-  config: authentication,
-  befores: authBefores,
-  afters: authAfters
-} = require('./authentication');
+const authentication = require("./authentication");
 
 const findCustomer = require("./searches/customer");
 const createCustomer = require("./creates/customer");
@@ -13,9 +9,9 @@ module.exports = {
   version: require('./package.json').version,
   platformVersion: require('zapier-platform-core').version,
 
-  authentication: authentication,
-  beforeRequest: [...authBefores],
-  afterResponse: [...authAfters],
+  authentication: authentication.config,
+  beforeRequest: [...authentication.befores],
+  afterResponse: [...authentication.afters],
 
   // If you want your trigger to show up, you better include it here!
   triggers: {},

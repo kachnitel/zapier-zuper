@@ -13,7 +13,8 @@ describe('creates.customer', () => {
     const bundle = {
       inputData: customer.operation.sample,
       authData: {
-        apiKey: process.env.API_KEY
+        apiKey: process.env.API_KEY,
+        region: process.env.ZUPER_REGION
       }
     };
 

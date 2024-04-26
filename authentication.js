@@ -10,7 +10,7 @@ require('dotenv').config();
 // response data for testing purposes. Your connection label can access any data
 // from the returned response using the `json.` prefix. eg: `{{json.username}}`.
 const test = (z, bundle) =>
-  z.request({ url: `https://${process.env.ZUPER_REGION}.zuperpro.com/api/user/all` });
+  z.request({ url: `https://${bundle.authData.region}.zuperpro.com/api/user/all` });
 
 // This function runs after every outbound request. You can use it to check for
 // errors or modify the response. You can have as many as you need. They'll need
@@ -60,12 +60,20 @@ module.exports = {
 
     // Define any input app's auth requires here. The user will be prompted to enter
     // this info when they connect their account.
-    fields: [{
-      key: 'apiKey',
-      label: 'API Key',
-      required: true,
-      helpText: 'See https://developers.zuper.co/api-docs/#authentication'
-    }],
+    fields: [
+      {
+        key: 'apiKey',
+        label: 'API Key',
+        required: true,
+        helpText: 'See https://developers.zuper.co/api-docs/#authentication'
+      },
+      {
+        key: 'region',
+        label: 'Region',
+        required: true,
+        helpText: 'See "dc_name" in Response at https://zuperpro.readme.io/docs/getting-started#what-is-my-base-api-url'
+      }
+    ],
 
     // The test method allows Zapier to verify that the credentials a user provides
     // are valid. We'll execute this method whenever a user connects their account for
@@ -80,7 +88,7 @@ module.exports = {
     // in `bundle.inputData.X`.
     connectionLabel: (z, bundle) => {
       // return bundle.inputData.apiKey;
-      return 'API Key: ***' + bundle.inputData.apiKey.substr(-4);
+      return 'API Key: ***' + bundle.inputData.apiKey.substr(-4) + ' Region: ' + bundle.inputData.region;
     }
   },
   befores: [includeApiKey],

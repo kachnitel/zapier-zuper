@@ -13,7 +13,8 @@ describe('searches.customer', () => {
         email: ''
       },
       authData: {
-        apiKey: process.env.API_KEY
+        apiKey: process.env.API_KEY,
+        region: process.env.ZUPER_REGION
       }
     };
 
@@ -28,7 +29,8 @@ describe('searches.customer', () => {
         email: 'bad-email'
       },
       authData: {
-        apiKey: process.env.API_KEY
+        apiKey: process.env.API_KEY,
+        region: process.env.ZUPER_REGION
       }
     };
 
