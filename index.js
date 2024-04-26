@@ -3,6 +3,10 @@ const authentication = require("./authentication");
 const findCustomer = require("./searches/customer");
 const createCustomer = require("./creates/customer");
 
+const findJob = require("./searches/job");
+const findJobs = require("./searches/jobs");
+const getJob = require("./searches/job_get");
+
 module.exports = {
   // This is just shorthand to reference the installed dependencies you have.
   // Zapier will need to know these before we can upload.
@@ -18,7 +22,10 @@ module.exports = {
 
   // If you want your searches to show up, you better include it here!
   searches: {
-    [findCustomer.key]: findCustomer
+    [findCustomer.key]: findCustomer,
+    [findJob.key]: findJob,
+    [findJobs.key]: findJobs,
+    [getJob.key]: getJob
   },
 
   // If you want your creates to show up, you better include it here!

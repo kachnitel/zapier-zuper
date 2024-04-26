@@ -2,16 +2,16 @@ const zapier = require('zapier-platform-core');
 
 // Use this to make test calls into your app:
 const App = require('../../index');
-const customer = require('../../creates/customer');
 const appTester = zapier.createAppTester(App);
 // read the `.env` file into the environment, if available
 zapier.tools.env.inject();
 
-describe('creates.customer', () => {
-  it('should fail on category', async () => {
-    // console.log(customer.operation.sample);
+describe('searches.job', () => {
+  it('should 404', async () => {
     const bundle = {
-      inputData: customer.operation.sample,
+      inputData: {
+        uid: 123
+      },
       authData: {
         apiKey: process.env.API_KEY,
         region: process.env.ZUPER_REGION
@@ -19,11 +19,10 @@ describe('creates.customer', () => {
     };
 
     try {
-      await appTester(App.creates.customer.operation.perform, bundle);
+      await appTester(App.searches.job.operation.perform, bundle);
     } catch (error) {
       // TODO:
-      // we dont have a category and don't wanna create customer anyways
-      // assert status is 400 and message is The Category is not valid
+      // assert status is 404 and message is Job Not found for given UID
     }
   });
 });
