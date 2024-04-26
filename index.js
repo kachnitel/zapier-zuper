@@ -6,6 +6,7 @@ const createCustomer = require("./creates/customer");
 const findJob = require("./searches/job");
 const findJobs = require("./searches/jobs");
 const getJob = require("./searches/job_get");
+const createJob = require("./creates/job");
 
 module.exports = {
   // This is just shorthand to reference the installed dependencies you have.
@@ -30,7 +31,8 @@ module.exports = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [createCustomer.key]: createCustomer
+    [createCustomer.key]: createCustomer,
+    [createJob.key]: createJob
   },
 
   searchOrCreates: {
