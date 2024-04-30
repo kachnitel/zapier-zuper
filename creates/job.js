@@ -3,32 +3,35 @@ const perform = async (z, bundle) => {
   const endpoint = 'jobs';
   const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}`;
 
+  const job = {
+    job_title: bundle.inputData.job_title,
+    job_category: bundle.inputData.job_category,
+    due_date: bundle.inputData.due_date,
+    customer_uid: bundle.inputData.customer_uid,
+    customer_address: {
+      city: bundle.inputData.customer_address__city,
+      state: bundle.inputData.customer_address__state,
+      street: bundle.inputData.customer_address__street,
+      country: bundle.inputData.customer_address__country,
+      zip_code: bundle.inputData.customer_address__zip_code
+    },
+    customer_billing_address: {
+      city: bundle.inputData.customer_billing_address__city,
+      state: bundle.inputData.customer_billing_address__state,
+      street: bundle.inputData.customer_billing_address__street,
+      country: bundle.inputData.customer_billing_address__country,
+      zip_code: bundle.inputData.customer_billing_address__zip_code
+    },
+    custom_fields: bundle.inputData.custom_fields
+  };
+
   const response = await z.request({
     method: 'POST',
     url: url,
     // if `body` is an object, it'll automatically get run through JSON.stringify
     // if you don't want to send JSON, pass a string in your chosen format here instead
     // body: { job: bundle.inputData }
-    body: { job: {
-      job_title: bundle.inputData.job_title,
-      job_category: bundle.inputData.job_category,
-      due_date: bundle.inputData.due_date,
-      customer_uid: bundle.inputData.customer_uid,
-      customer_address: {
-        city: bundle.inputData.customer_address__city,
-        state: bundle.inputData.customer_address__state,
-        street: bundle.inputData.customer_address__street,
-        country: bundle.inputData.customer_address__country,
-        zip_code: bundle.inputData.customer_address__zip_code
-      },
-      customer_billing_address: {
-        city: bundle.inputData.customer_billing_address__city,
-        state: bundle.inputData.customer_billing_address__state,
-        street: bundle.inputData.customer_billing_address__street,
-        country: bundle.inputData.customer_billing_address__country,
-        zip_code: bundle.inputData.customer_billing_address__zip_code
-      }
-    } }
+    body: { job: job }
   });
   // this should return a single object
   return response.data;
@@ -110,6 +113,37 @@ module.exports = {
             key: 'customer_billing_address__zip_code'
           }
         ]
+      },
+      {
+        // allow adding multiple "sets" of fields, then add label: string, value: string
+        key: 'custom_fields',
+        children: [
+          {
+            "key": "label",
+            "label": "Label",
+            "type": "string",
+            "required": true,
+            "list": false,
+            "altersDynamicFields": false
+          },
+          {
+            "key": "value",
+            "label": "Value",
+            "type": "string",
+            "required": true,
+            "list": false,
+            "altersDynamicFields": false
+          },
+          {
+            "key": "type",
+            "label": "Type",
+            "type": "string",
+            "default": "SINGLE_LINE",
+            "required": true,
+            "list": false,
+            "altersDynamicFields": false
+          }
+        ]
       }
     ],
 
@@ -122,19 +156,26 @@ module.exports = {
       job_category: 'd4e8fdq4a-fq56fcq-fqef8',
       due_date: '2021-08-18T00:00:00Z',
       customer_address: {
-        city: 'City',
-        state: 'State',
-        street: 'Street',
-        country: 'Country',
-        zip_code: 'Zip Code'
+        customer_address__city: 'City',
+        customer_address__state: 'State',
+        customer_address__street: 'Street',
+        customer_address__country: 'Country',
+        customer_address__zip_code: 'Zip Code'
       },
       customer_billing_address: {
-        city: 'City',
-        state: 'State',
-        street: 'Street',
-        country: 'Country',
-        zip_code: 'Zip Code'
-      }
+        customer_billing_address__city: 'City',
+        customer_billing_address__state: 'State',
+        customer_billing_address__street: 'Street',
+        customer_billing_address__country: 'Country',
+        customer_billing_address__zip_code: 'Zip Code'
+      },
+      custom_fields: [
+        {
+          label: 'Label',
+          value: 'Value',
+          type: 'SINGLE_LINE'
+        }
+      ]
     },
 
     // If fields are custom to each user (like spreadsheet columns), `outputFields` can create human labels
