@@ -23,6 +23,7 @@ const perform = async (z, bundle) => {
         bundle.inputData.customer_address__geo_coordinates__longitude
       ]
     },
+    job_description: bundle.inputData.job_description
   };
 
   const response = await z.request({
@@ -117,6 +118,10 @@ module.exports = {
             type: 'number'
           }
         ]
+      },
+      {
+        key: 'job_description',
+        required: false
       }
     ],
 
@@ -137,7 +142,8 @@ module.exports = {
         customer_address__street: 'Street',
         customer_address__country: 'Country',
         customer_address__zip_code: 'Zip Code'
-      }
+      },
+      job_description: 'Job Description'
     },
 
     // If fields are custom to each user (like spreadsheet columns), `outputFields` can create human labels

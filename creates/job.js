@@ -29,7 +29,10 @@ const perform = async (z, bundle) => {
       country: bundle.inputData.customer_billing_address__country,
       zip_code: bundle.inputData.customer_billing_address__zip_code
     },
-    custom_fields: bundle.inputData.custom_fields
+    custom_fields: bundle.inputData.custom_fields,
+    job_description: bundle.inputData.job_description,
+    team_uid: bundle.inputData.team_uid,
+    assigned_to: bundle.inputData.assigned_to,
   };
 
   const response = await z.request({
@@ -152,29 +155,51 @@ module.exports = {
         key: 'custom_fields',
         children: [
           {
-            "key": "label",
-            "label": "Label",
-            "type": "string",
-            "required": true,
-            "list": false,
-            "altersDynamicFields": false
+            key: "label",
+            label: "Label",
+            type: "string",
+            // required: true,
+            list: false,
+            altersDynamicFields: false
           },
           {
-            "key": "value",
-            "label": "Value",
-            "type": "string",
-            "required": true,
-            "list": false,
-            "altersDynamicFields": false
+            key: "value",
+            label: "Value",
+            type: "string",
+            // required: true,
+            list: false,
+            altersDynamicFields: false
           },
           {
-            "key": "type",
-            "label": "Type",
-            "type": "string",
-            "default": "SINGLE_LINE",
-            "required": true,
-            "list": false,
-            "altersDynamicFields": false
+            key: "type",
+            label: "Type",
+            type: "string",
+            default: "SINGLE_LINE",
+            // required: true,
+            list: false,
+            altersDynamicFields: false
+          }
+        ]
+      },
+      {
+        key: 'job_description',
+        required: false
+      },
+      {
+        key: 'team_uid',
+        required: false
+      },
+      {
+        key: 'assigned_to',
+        required: false,
+        children: [ // team_uid, user_uid
+          {
+            key: 'assigned_to__team_uid',
+            required: false
+          },
+          {
+            key: 'assigned_to__user_uid',
+            required: false
           }
         ]
       }
@@ -210,7 +235,13 @@ module.exports = {
           value: 'Value',
           type: 'SINGLE_LINE'
         }
-      ]
+      ],
+      job_description: 'Job Description',
+      team_uid: 'd4e8fdq4a-fq56fcq-fqef8',
+      assigned_to: {
+        assigned_to__team_uid: 'd4e8fdq4a-fq56fcq-fqef8',
+        assigned_to__user_uid: 'd4e8fdq4a-fq56fcq-fqef8'
+      }
     },
 
     // If fields are custom to each user (like spreadsheet columns), `outputFields` can create human labels

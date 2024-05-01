@@ -13,6 +13,7 @@ const perform = async (z, bundle) => {
       customer_last_name: bundle.inputData.customerLastName,
       customer_company_name: bundle.inputData.customerCompanyName,
       customer_email: bundle.inputData.customerEmail,
+      customer_contact_no: bundle.inputData.customerContactNo,
       customer_category: bundle.inputData.customerCategory
     } }
   });
@@ -42,6 +43,7 @@ module.exports = {
       {key: 'customerLastName', required: true, label: 'Last Name', helpText: 'The last name of the customer.'},
       {key: 'customerCompanyName', required: false, label: 'Company Name', helpText: 'The company name of the customer.'},
       {key: 'customerEmail', required: true, label: 'Email', helpText: 'The email of the customer.'},
+      {key: 'customerContactNo', required: false, label: 'Contact No', helpText: 'The contact number of the customer.'},
       // TODO: https://github.com/zapier/zapier-platform/tree/main/packages/cli#dynamic-dropdowns
       {key: 'customerCategory', required: true, label: 'Category', helpText: 'The category of the customer.'}
     ],
@@ -53,6 +55,7 @@ module.exports = {
       customerFirstName: 'John',
       customerLastName: 'Doe',
       customerEmail: 'johndoe@example.com',
+      customerContactNo: '1234567890',
       customerCategory: 'd4e8fdq4a-fq56fcq-fqef8'
     },
 
