@@ -1,7 +1,43 @@
-// create a particular job by name
+const getCustomFields = async (z, bundle) => {
+  const endpoint = 'settings/custom_fields';
+  const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}?module_name=JOB`;
+
+  const response = await z.request({
+    method: 'GET',
+    url: url
+  });
+
+  const customFields = response.data.data.map(field => {
+    return {
+      key: field._id,
+      label: field.field_name,
+      // type: field.field_type
+    };
+  });
+
+  // return customFields;
+  return {
+    key: 'custom_fields',
+    children: customFields
+  };
+}
+
 const perform = async (z, bundle) => {
   const endpoint = 'jobs';
   const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}`;
+
+  // Find labels for custom fields by id
+  const customFields = await getCustomFields(z, bundle);
+  // throw new Error('customFields' + JSON.stringify(customFields) + JSON.stringify(bundle.inputData.custom_fields));
+  // console.warn('customFields', customFields, bundle.inputData.custom_fields);
+  // const customFieldsData = bundle.inputData.custom_fields[0].map((key, field) => {
+  // get from object keys instead of array
+  const customFieldsData = Object.keys(bundle.inputData.custom_fields[0]).map(key => {
+    return {
+      label: customFields.children.find(field => field.key === key).label,
+      value: bundle.inputData.custom_fields[0][key]
+    };
+  });
 
   const job = {
     job_title: bundle.inputData.job_title,
@@ -29,10 +65,11 @@ const perform = async (z, bundle) => {
       country: bundle.inputData.customer_billing_address__country,
       zip_code: bundle.inputData.customer_billing_address__zip_code
     },
-    custom_fields: bundle.inputData.custom_fields,
+    custom_fields: customFieldsData,
     job_description: bundle.inputData.job_description,
     team_uid: bundle.inputData.team_uid,
     assigned_to: bundle.inputData.assigned_to,
+    job_tags: bundle.inputData.job_tags
   };
 
   const response = await z.request({
@@ -151,37 +188,6 @@ module.exports = {
         ]
       },
       {
-        // allow adding multiple "sets" of fields, then add label: string, value: string
-        key: 'custom_fields',
-        children: [
-          {
-            key: "label",
-            label: "Label",
-            type: "string",
-            // required: true,
-            list: false,
-            altersDynamicFields: false
-          },
-          {
-            key: "value",
-            label: "Value",
-            type: "string",
-            // required: true,
-            list: false,
-            altersDynamicFields: false
-          },
-          {
-            key: "type",
-            label: "Type",
-            type: "string",
-            default: "SINGLE_LINE",
-            // required: true,
-            list: false,
-            altersDynamicFields: false
-          }
-        ]
-      },
-      {
         key: 'job_description',
         required: false
       },
@@ -202,7 +208,13 @@ module.exports = {
             required: false
           }
         ]
-      }
+      },
+      {
+        key: 'job_tags',
+        required: false,
+        list: true
+      },
+      getCustomFields
     ],
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
@@ -229,13 +241,6 @@ module.exports = {
         customer_billing_address__country: 'Country',
         customer_billing_address__zip_code: 'Zip Code'
       },
-      custom_fields: [
-        {
-          label: 'Label',
-          value: 'Value',
-          type: 'SINGLE_LINE'
-        }
-      ],
       job_description: 'Job Description',
       team_uid: 'd4e8fdq4a-fq56fcq-fqef8',
       assigned_to: {
