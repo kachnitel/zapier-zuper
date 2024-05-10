@@ -1,7 +1,18 @@
+// const CustomFields = require('../src/CustomFields');
+// const getCustomFields = async (z, bundle) => {
+//   return CustomFields.getCustomFields(z, bundle);
+// }
+
+const { getCustomFields, getCustomFieldsData } = require('../src/CustomFields');
+
 // create a particular job by name
 const perform = async (z, bundle) => {
   const endpoint = 'jobs';
   const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}`;
+
+  // Find labels for custom fields by id
+  // const customFieldsData = CustomFields.getCustomFieldsData(z, bundle);
+  const customFieldsData = getCustomFieldsData(z, bundle);
 
   const job = {
     job_uid: bundle.inputData.job_uid,
@@ -24,7 +35,9 @@ const perform = async (z, bundle) => {
       ]
     },
     job_description: bundle.inputData.job_description,
-    team_uid: bundle.inputData.team_uid
+    team_uid: bundle.inputData.team_uid,
+    custom_fields: customFieldsData,
+    job_tags: bundle.inputData.job_tags
   };
 
   const response = await z.request({
@@ -127,7 +140,13 @@ module.exports = {
       {
         key: 'team_uid',
         required: false
-      }
+      },
+      {
+        key: 'job_tags',
+        required: false,
+        list: true
+      },
+      getCustomFields
     ],
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example

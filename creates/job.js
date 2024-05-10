@@ -1,43 +1,16 @@
-const getCustomFields = async (z, bundle) => {
-  const endpoint = 'settings/custom_fields';
-  const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}?module_name=JOB`;
-
-  const response = await z.request({
-    method: 'GET',
-    url: url
-  });
-
-  const customFields = response.data.data.map(field => {
-    return {
-      key: field._id,
-      label: field.field_name,
-      // type: field.field_type
-    };
-  });
-
-  // return customFields;
-  return {
-    key: 'custom_fields',
-    children: customFields
-  };
-}
+// const CustomFields = require('../src/CustomFields');
+// const getCustomFields = async (z, bundle) => {
+//   return CustomFields.getCustomFields(z, bundle);
+// }
+const { getCustomFields, getCustomFieldsData } = require('../src/CustomFields');
 
 const perform = async (z, bundle) => {
   const endpoint = 'jobs';
   const url = `https://${bundle.authData.region}.zuperpro.com/api/${endpoint}`;
 
   // Find labels for custom fields by id
-  const customFields = await getCustomFields(z, bundle);
-  // throw new Error('customFields' + JSON.stringify(customFields) + JSON.stringify(bundle.inputData.custom_fields));
-  // console.warn('customFields', customFields, bundle.inputData.custom_fields);
-  // const customFieldsData = bundle.inputData.custom_fields[0].map((key, field) => {
-  // get from object keys instead of array
-  const customFieldsData = Object.keys(bundle.inputData.custom_fields[0]).map(key => {
-    return {
-      label: customFields.children.find(field => field.key === key).label,
-      value: bundle.inputData.custom_fields[0][key]
-    };
-  });
+  // const customFieldsData = CustomFields.getCustomFieldsData(z, bundle);
+  const customFieldsData = getCustomFieldsData(z, bundle);
 
   const job = {
     job_title: bundle.inputData.job_title,
