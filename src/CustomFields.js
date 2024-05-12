@@ -10,27 +10,46 @@ const getCustomFields = async (z, bundle) => {
   const customFields = response.data.data.map(field => {
     return {
       key: field._id,
-      label: field.field_name,
-      // type: field.field_type
+      label: field.field_name
     };
   });
 
-  // return customFields;
-  return {
-    key: 'custom_fields',
-    children: customFields
-  };
+  return customFields;
 }
 
+/**
+ * customFields: [
+ *   {"key":"6639631ac29f4ace04386586","label":"Stove type"},
+ *   {"key":"6639631ac29f4ace04386589","label":"Order ID"},
+ *   ...
+ * ]
+ *
+ * bundle.inputData: {
+ *   ...
+ *   "6639631ac29f4ace04386586":"Electric",
+ *   "6639631ac29f4ace04386589":"20987",
+ *   ...
+ * }
+ *
+ * Find labels for custom fields
+ * if inputData property name matches a custom field key, then add a new object to customFieldsData array
+ */
 const getCustomFieldsData = async (z, bundle) => {
-  const customFields = await this.getCustomFields(z, bundle);
+  const customFields = await getCustomFields(z, bundle);
 
-  return Object.keys(bundle.inputData.custom_fields[0]).map(key => {
-    return {
-      label: customFields.children.find(field => field.key === key).label,
-      value: bundle.inputData.custom_fields[0][key]
-    };
+  const customFieldsData = [];
+
+  Object.keys(bundle.inputData).forEach(key => {
+    const field = customFields.find(field => field.key === key);
+    if (field) {
+      customFieldsData.push({
+        label: field.label,
+        value: bundle.inputData[key]
+      });
+    }
   });
+
+  return customFieldsData;
 }
 
 module.exports = {

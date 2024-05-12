@@ -12,7 +12,7 @@ const perform = async (z, bundle) => {
 
   // Find labels for custom fields by id
   // const customFieldsData = CustomFields.getCustomFieldsData(z, bundle);
-  const customFieldsData = getCustomFieldsData(z, bundle);
+  const customFieldsData = await getCustomFieldsData(z, bundle);
 
   const job = {
     job_uid: bundle.inputData.job_uid,
