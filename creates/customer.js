@@ -14,7 +14,18 @@ const perform = async (z, bundle) => {
       customer_company_name: bundle.inputData.customerCompanyName,
       customer_email: bundle.inputData.customerEmail,
       customer_contact_no: bundle.inputData.customerContactNo,
-      customer_category: bundle.inputData.customerCategory
+      customer_category: bundle.inputData.customerCategory,
+      customer_address: {
+        city: bundle.inputData.customer_address__city,
+        state: bundle.inputData.customer_address__state,
+        street: bundle.inputData.customer_address__street,
+        country: bundle.inputData.customer_address__country,
+        zip_code: bundle.inputData.customer_address__zip_code,
+        geo_coordinates: [
+          bundle.inputData.customer_address__geo_coordinates__latitude,
+          bundle.inputData.customer_address__geo_coordinates__longitude
+        ]
+      },
     } }
   });
   // this should return a single object
@@ -45,7 +56,35 @@ module.exports = {
       {key: 'customerEmail', required: true, label: 'Email', helpText: 'The email of the customer.'},
       {key: 'customerContactNo', required: false, label: 'Contact No', helpText: 'The contact number of the customer.'},
       // TODO: https://github.com/zapier/zapier-platform/tree/main/packages/cli#dynamic-dropdowns
-      {key: 'customerCategory', required: true, label: 'Category', helpText: 'The category of the customer.'}
+      {key: 'customerCategory', required: true, label: 'Category', helpText: 'The category of the customer.'},
+      {
+        key: 'customer_address',
+        children: [
+          {
+            key: 'customer_address__city'
+          },
+          {
+            key: 'customer_address__state'
+          },
+          {
+            key: 'customer_address__street'
+          },
+          {
+            key: 'customer_address__country'
+          },
+          {
+            key: 'customer_address__zip_code'
+          },
+          {
+            key: 'customer_address__geo_coordinates__latitude',
+            type: 'number'
+          },
+          {
+            key: 'customer_address__geo_coordinates__longitude',
+            type: 'number'
+          }
+        ]
+      }
     ],
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
