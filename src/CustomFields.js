@@ -9,7 +9,7 @@ const getCustomFields = async (z, bundle) => {
 
   const customFields = response.data.data.map(field => {
     return {
-      key: field._id,
+      key: snakeCase(field.field_name),
       label: field.field_name
     };
   });
@@ -19,15 +19,22 @@ const getCustomFields = async (z, bundle) => {
 
 /**
  * customFields: [
- *   {"key":"6639631ac29f4ace04386586","label":"Stove type"},
- *   {"key":"6639631ac29f4ace04386589","label":"Order ID"},
+ *   {"key":"stove_type","label":"Stove type"},
+ *   {"key":"order_id","label":"Order ID"},
  *   ...
  * ]
  *
  * bundle.inputData: {
  *   ...
- *   "6639631ac29f4ace04386586":"Electric",
- *   "6639631ac29f4ace04386589":"20987",
+ *   "stove_type":"Electric",
+ *   "order_id":"20987",
+ *
+ * ...
+ * }
+ *
+ * payload: {
+ *   "label": "Stove Type",
+ *   "value": "Stuff"
  *   ...
  * }
  *
@@ -41,6 +48,7 @@ const getCustomFieldsData = async (z, bundle) => {
 
   Object.keys(bundle.inputData).forEach(key => {
     const field = customFields.find(field => field.key === key);
+
     if (field) {
       customFieldsData.push({
         label: field.label,
@@ -50,6 +58,16 @@ const getCustomFieldsData = async (z, bundle) => {
   });
 
   return customFieldsData;
+}
+
+/**
+ * Convert field name to snake case
+ *
+ * @param {string} subject
+ * @returns
+ */
+const snakeCase = (subject) => {
+  return subject.toLowerCase().replace(/ /g, '_');
 }
 
 module.exports = {
