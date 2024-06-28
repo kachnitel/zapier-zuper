@@ -26,7 +26,7 @@ const perform = async (z, bundle) => {
       street: bundle.inputData.customer_address__street,
       country: bundle.inputData.customer_address__country,
       zip_code: bundle.inputData.customer_address__zip_code,
-      geo_coordinates: [
+      geo_cordinates: [
         bundle.inputData.customer_address__geo_coordinates__latitude,
         bundle.inputData.customer_address__geo_coordinates__longitude
       ]
@@ -36,11 +36,19 @@ const perform = async (z, bundle) => {
       state: bundle.inputData.customer_billing_address__state,
       street: bundle.inputData.customer_billing_address__street,
       country: bundle.inputData.customer_billing_address__country,
-      zip_code: bundle.inputData.customer_billing_address__zip_code
+      zip_code: bundle.inputData.customer_billing_address__zip_code,
+      geo_cordinates: [
+        bundle.inputData.customer_billing_address__geo_coordinates__latitude,
+        bundle.inputData.customer_billing_address__geo_coordinates__longitude
+      ]
     },
     custom_fields: customFieldsData,
     job_description: bundle.inputData.job_description,
-    team_uid: bundle.inputData.team_uid,
+    assigned_to_team: [
+      {
+        team_uid: bundle.inputData.assigned_to__team_uid
+      }
+    ],
     assigned_to: bundle.inputData.assigned_to,
     job_tags: bundle.inputData.job_tags
   };
@@ -157,6 +165,14 @@ module.exports = {
           },
           {
             key: 'customer_billing_address__zip_code'
+          },
+          {
+            key: 'customer_billing_address__geo_coordinates__latitude',
+            type: 'number'
+          },
+          {
+            key: 'customer_billing_address__geo_coordinates__longitude',
+            type: 'number'
           }
         ]
       },
@@ -165,13 +181,9 @@ module.exports = {
         required: false
       },
       {
-        key: 'team_uid',
-        required: false
-      },
-      {
         key: 'assigned_to',
         required: false,
-        children: [ // team_uid, user_uid
+        children: [
           {
             key: 'assigned_to__team_uid',
             required: false
