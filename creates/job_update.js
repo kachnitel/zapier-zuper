@@ -35,7 +35,11 @@ const perform = async (z, bundle) => {
       ]
     },
     job_description: bundle.inputData.job_description,
-    team_uid: bundle.inputData.team_uid,
+    assigned_to_team: [
+      {
+        team_uid: bundle.inputData.assigned_to__team_uid
+      }
+    ],
     custom_fields: customFieldsData,
     job_tags: bundle.inputData.job_tags
   };
@@ -74,6 +78,7 @@ module.exports = {
         key: 'job_uid',
         required: true
       },
+      // TODO: Below duplicates job.js. Refactor to use shared fields
       {
         key: 'customer_uid',
       },
@@ -138,8 +143,18 @@ module.exports = {
         required: false
       },
       {
-        key: 'team_uid',
-        required: false
+        key: 'assigned_to',
+        required: false,
+        children: [
+          {
+            key: 'assigned_to__team_uid',
+            required: false
+          },
+          {
+            key: 'assigned_to__user_uid',
+            required: false
+          }
+        ]
       },
       {
         key: 'job_tags',
@@ -167,8 +182,7 @@ module.exports = {
         customer_address__country: 'Country',
         customer_address__zip_code: 'Zip Code'
       },
-      job_description: 'Job Description',
-      team_uid: 'd4e8fdq4a-fq56fcq-fqef8'
+      job_description: 'Job Description'
     },
 
     // If fields are custom to each user (like spreadsheet columns), `outputFields` can create human labels
